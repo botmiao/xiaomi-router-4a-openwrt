@@ -160,4 +160,7 @@ OpenWrt 下的 `mtd write` 写回。
 
 ## License
 
-代码部分跟随上游 OpenWRTInvasion 采用 [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html)。
+本仓库整体采用 MIT License（见 [LICENSE](LICENSE)）。其中
+`tools/exploit_local.py` 与 vendored 的 `speedtest_urls_template.xml`
+源自 [OpenWRTInvasion](https://github.com/acecilia/OpenWRTInvasion)
+（GPL-3.0），这两个文件按上游许可以 GPL-3.0 提供。
