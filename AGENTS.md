@@ -7,10 +7,12 @@
 本文件不记录任何真实密码、SSID 或设备序列号。
 
 `.gitignore` 采用**白名单模式**：默认忽略一切，仅显式放行的文件入库。
-**永远不要放行**：`backup/`（原厂全片备份、uci 快照，含隐私）、
-`firmware/`（固件二进制与解包，版权+体积）、`tools/invasion*.zip`、
-`tools/OpenWRTInvasion-master/` 整体副本，以及各过程日志/探针脚本；
-也不要把真实凭据写回任何入库文件。
+**永远不要放行**：`backup/`（原厂全片备份、uci 快照，含隐私；如需异地
+备份应放**私有**仓库，绝不入公开仓库）、`firmware/rootfs.squashfs` 与
+`firmware/rootfs_out/`（小米固件解包）、`firmware/*v2*.bin`（未使用的
+V2 固件）、`tools/invasion*.zip`、`tools/OpenWRTInvasion-master/` 整体
+副本，以及各过程日志/探针脚本；也不要把真实凭据写回任何入库文件。
+firmware/ 下 4 个实际使用的固件已按用户决定入库（防直链失效的备份）。
 
 ## Agent 协作须知
 

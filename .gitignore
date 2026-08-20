@@ -3,16 +3,24 @@
 #
 # 永远不得入库（含隐私/版权/体积原因）：
 #   backup/              原厂全片备份、uci 快照（含 WiFi 密码）
-#   firmware/            固件二进制与小米固件解包（版权+体积）
+#   firmware/rootfs.squashfs、firmware/rootfs_out/   小米固件解包（版权+体积）
+#   firmware/*v2*.bin    未使用的 V2 备用固件
 #   tools/OpenWRTInvasion-master/   上游仓库完整副本（仅 vendored 模板）
 #   tools/invasion*.zip、过程日志、探针脚本等
 # AGENTS.md / README.md / tools 下放行脚本均已脱敏，勿把真实密码写回。
+# firmware/ 下 4 个实际使用的固件已入库（防直链失效的备份，用户决定）。
 
 /*
 
 !/.gitignore
 !/AGENTS.md
 !/README.md
+!/firmware/
+/firmware/*
+!/firmware/openwrt-25.12.5-ramips-mt7621-xiaomi_mi-router-4a-gigabit-initramfs-kernel.bin
+!/firmware/openwrt-25.12.5-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin
+!/firmware/miwifi_r4a_2.28.62.bin
+!/firmware/miwifi_r4a_2.28.69.bin
 !/tools/
 
 /tools/*

@@ -38,6 +38,10 @@
 
 ```
 README.md
+firmware/           刷机实际使用的 4 个固件（防直链失效，随仓库备份）
+  openwrt-25.12.5-ramips-mt7621-xiaomi_mi-router-4a-gigabit-initramfs-kernel.bin
+  openwrt-25.12.5-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin
+  miwifi_r4a_2.28.62.bin / miwifi_r4a_2.28.69.bin
 tools/
   exploit_local.py    通用注入框架（level A-F，A/B/C 需 OpenWRTInvasion 的
                       busybox/dropbear 文件；E/F 即"备份骨架夹带"路线）
@@ -58,22 +62,31 @@ tools/
 
 1. **Python 环境**：Python 3.10+，`pip install requests`（或直接用
    `uv run --with requests xxx.py`）
-2. **下载固件**（本仓库不含固件二进制），放入 `firmware/` 目录，
-   `final19_flash.py` 默认读取其中的 initramfs 镜像：
+2. **固件**：已随仓库提供（`firmware/` 下 4 个实际使用的镜像，
+   `final19_flash.py` 默认读取其中的 initramfs）。SHA256 与备用直链如下
+   （直链于 2026-08 逐一验证可达，下载后按表核对）：
 
-   | 文件 | 说明 | SHA256 |
+   | 文件（firmware/ 内） | 用途 | SHA256 |
    |---|---|---|
-   | `openwrt-25.12.5-ramips-mt7621-xiaomi_mi-router-4a-gigabit-initramfs-kernel.bin` | 临时系统（刷入 OS1） | `01f15cd3220401ed00d23d8230aed94ec4d49dbdb98efd13a6123d58b237c375` |
-   | `openwrt-25.12.5-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin` | 正式固件 | `9299c6c21b0b57927fac5d4310f87b677c37b16dab10bb6fd340cd7bb145f49d` |
+   | `openwrt-25.12.5-...-gigabit-initramfs-kernel.bin` | 临时系统（刷入 OS1） | `01f15cd3220401ed00d23d8230aed94ec4d49dbdb98efd13a6123d58b237c375` |
+   | `openwrt-25.12.5-...-gigabit-squashfs-sysupgrade.bin` | 正式固件 | `9299c6c21b0b57927fac5d4310f87b677c37b16dab10bb6fd340cd7bb145f49d` |
    | `miwifi_r4a_2.28.62.bin` | 小米降级固件 | `07d3cead22e3c4fbe98eec29de5d5bea8dad12ade931179972ee56d2ac249060` |
+   | `miwifi_r4a_2.28.69.bin` | 小米固件（刷机时停留的版本） | `6010b44e7732a2e9ce59d601aba5dc661e1c30560e666a962d6e0fed662733bc` |
 
-   - OpenWrt 固件目录（按版本号进入 `targets/ramips/mt7621/`）：
-     官方 `https://downloads.openwrt.org/releases/`，国内镜像
-     `https://mirrors.ustc.edu.cn/openwrt/releases/`
-   - 小米 2.28.62 降级固件可从
-     [OpenWRTInvasion](https://github.com/acecilia/OpenWRTInvasion) 仓库
-     `firmwares/stock/` 获取（GitHub 直连困难时可用 jsDelivr 中转）
-   - V2 硬件请改用 `...-gigabit-v2-*.bin`（本人未使用，仅存校验和：
+   - OpenWrt（官方与国内镜像同目录，任选其一）：
+     `https://downloads.openwrt.org/releases/25.12.5/targets/ramips/mt7621/<文件名>`
+     `https://mirrors.ustc.edu.cn/openwrt/releases/25.12.5/targets/ramips/mt7621/<文件名>`
+   - 小米 2.28.62：官方 OTA CDN
+     `https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/r4a/miwifi_r4a_firmware_72d65_2.28.62.bin`
+     （同一文件亦由 [OpenWRTInvasion](https://github.com/acecilia/OpenWRTInvasion)
+     `firmwares/stock/` 托管，GitHub 直连困难时可用 jsDelivr 中转：
+     `https://cdn.jsdelivr.net/gh/acecilia/OpenWRTInvasion@master/firmwares/stock/miwifi_r4a_firmware_72d65_2.28.62.bin`）
+   - 小米 2.28.69：官方 OTA CDN
+     `https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/r4a/miwifi_r4a_all_cddf4_2.28.69.bin`
+     （CDN 原文件名带构建号 `cddf4`，仓库内改用短名存放）
+   - 更多小米历史版本：ezbox 镜像目录
+     `https://mirom.ezbox.idv.tw/miwifi/R4A/roms-stable/`（内容即官方 CDN 直链）
+   - V2 硬件请改用同目录 `...-gigabit-v2-*.bin`（未入库，校验和：
      initramfs `4a83ad4cfa5279c503b21d2e971f5b4b475cf65849c45f009ae7115f6495409c`，
      sysupgrade `c56e593931458ce3ba5f78d9461d837bc62b7c1a9c7e3d2162b45046aa69b8c1`）
 3. **建目录**：`mkdir backup`（接收全片备份；该目录永不入库）
